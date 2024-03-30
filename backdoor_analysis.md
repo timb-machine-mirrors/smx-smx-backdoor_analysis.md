@@ -87,8 +87,8 @@ __int64 backdoor_init(rootkit_ctx *ctx, DWORD *prev_got_ptr)
   _QWORD *cpuid_got_ptr_1;
 
   ctx->self = ctx;
-  // store rootkit data before overwrite
-  rootkit_ctx_save(ctx);
+  // store data before overwrite
+  backdoor_ctx_save(ctx);
   ctx->prev_got_ptr = ctx->got_ptr;
   runtime_offset = ctx->head - ctx->self;
   ctx->runtime_offset = runtime_offset;
