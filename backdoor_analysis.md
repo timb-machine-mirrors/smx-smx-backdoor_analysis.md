@@ -195,7 +195,7 @@ The malware initializes it in `parse_elf_init` (TODO: find which functions are u
                 ++ctx->num_imports;
   ```
  
-The third field, `opaque`, is used to pass additional data to the functions, e.g. (in `Llzma_index_buffer_encode_0`):
+The third `lzma_allocator` field, `opaque`, is abused to pass additional data to the "allocator" functions, e.g. (in `Llzma_index_buffer_encode_0`):
 
 ```c
   lzma_allocator = get_lzma_allocator();
