@@ -56,7 +56,7 @@
 Software Breakpoint check, method 1
 -----
 
-This method checks if the opcode `endbr64`, which is always present at the beginning of every function in the malware, is overwritten.
+This method checks if the instruction `endbr64`, which is always present at the beginning of every function in the malware, is overwritten.
 GDB would typically do this when inserting a software breakpoint
 
 ```c
