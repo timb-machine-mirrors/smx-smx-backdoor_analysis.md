@@ -94,7 +94,7 @@ __int64 check_software_breakpoint(_DWORD *code_addr, __int64 a2, int a3)
 ```
 
 ----
-Function backdoor_init (0xA784
+Function backdoor_init (0xA7849)
 
 ```c
 __int64 backdoor_init(rootkit_ctx *ctx, DWORD *prev_got_ptr)
@@ -130,3 +130,14 @@ __int64 backdoor_init(rootkit_ctx *ctx, DWORD *prev_got_ptr)
 }
 ```
 ----
+
+##### Name matching (function 0x28C0)
+```c
+str_id = table_get(a6, 0LL);
+...
+if ( str_id == STR_RSA_public_decrypt_ && v11 )
+...
+else if ( v13 && str_id == STR_EVP_PKEY_set__RSA_ )
+...
+else if (str_id != STR_RSA_get__key_ || !v17 )
+```
