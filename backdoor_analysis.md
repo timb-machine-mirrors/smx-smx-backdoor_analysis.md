@@ -182,8 +182,8 @@ char *get_lzma_allocator_addr()
 The interface for `lzma_allocator` can be viewed for example here: https://github.com/frida/xz/blob/e70f5800ab5001c9509d374dbf3e7e6b866c43fe/src/liblzma/api/lzma/base.h#L378-L440
 
 The malware initializes it in `parse_elf_init` (TODO: find which functions are used for `alloc` and `free`).
-  - NOTE: the function used for alloc is very likely `import_lookup_ex`, which turns `lzma_alloc` into an import resolution function:
-  e.g. from `resolve_imports`:
+  - NOTE: the function used for alloc is very likely `import_lookup_ex`, which turns `lzma_alloc` into an import resolution function.
+  this is used a lot in `resolve_imports`, e.g.:
   ```c
                 system_func = lzma_alloc(STR_system_, lzma_allocator);
               ctx->system = system_func;
