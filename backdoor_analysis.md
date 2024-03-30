@@ -7,6 +7,11 @@
 ##### Prefix Trie (https://social.hackerspace.pl/@q3k/112184695043115759)
 - `Llzip_decode_1` -> `table1`
 - `Lcrc64_clmul_1` -> `table2`	
+
+- `Llz_stream_decode` -> `count_1_bits`
+- `Lsimple_coder_update_0` -> `table_get`
+- `Lcrc_init_0` -> `table_lookup_multi`
+- `.Lcrc64_generic.0` -> `table_lookup_ex`
 -----
 
 ##### Anti RE and x64 code Dasm
@@ -31,10 +36,6 @@
 
 - `Llzma_stream_header_encode_part_0` -> `get_ehdr_address`
 - `Lparse_bcj_0` -> `process_elf_seg`
-- `Lsimple_coder_update_0` -> `table_get`
-- `Lcrc_init_0` -> `table_lookup_multi`
-- `.Lcrc64_generic.0` -> `table_lookup_ex`
-- `Llz_stream_decode` -> `count_1_bits`
 - `Llzma_simple_props_size_part_0` -> `is_gnu_relro`
 ----
 
