@@ -166,7 +166,8 @@ char *get_lzma_allocator_addr()
   char *mem;
 
   // Llookup_filter_part_0 holds the relative offset of `_Ldecoder_1` - 180h (0xC930)
-  // by adding 0x160, it gets to 0xCA90 (Lx86_coder_destroy), which is subsequently used as scratch space for creating the `lzma_allocator` struct (data starts after 8 bytes, at 0xCA98, which is the beginning of a .data segment)
+  // by adding 0x160, it gets to 0xCA90 (Lx86_coder_destroy), which is subsequently used as scratch space
+  // for creating the `lzma_allocator` struct (data starts after 8 bytes, at 0xCA98, which is the beginning of a .data segment)
   mem = (char *)Llookup_filter_part_0;
   for ( i = 0; i <= 0xB; ++i )
     mem += 32;
