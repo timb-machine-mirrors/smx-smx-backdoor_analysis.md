@@ -25,11 +25,12 @@
 
 ----
 ##### ELF parsing
-- `Lget_literal_price_part_0` -> `parse_elf`
-- `Lparse_bcj_0` -> `process_elf_seg`
-- `Lmicrolzma_encoder_init_1` -> `parse_elf_init`
 - `Llzma_filter_decoder_is_supported.part.0` -> `parse_elf_invoke`
+- `Lmicrolzma_encoder_init_1` -> `parse_elf_init`
+- `Lget_literal_price_part_0` -> `parse_elf`
+
 - `Llzma_stream_header_encode_part_0` -> `get_ehdr_address`
+- `Lparse_bcj_0` -> `process_elf_seg`
 - `Lsimple_coder_update_0` -> `table_get`
 - `Lcrc_init_0` -> `table_lookup_multi`
 - `.Lcrc64_generic.0` -> `table_lookup_ex`
