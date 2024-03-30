@@ -64,7 +64,7 @@
 
 - `Llzma_lzma_optimum_fast_0` -> `install_entries`
 - `Llzip_decoder_memconfig_part_0` -> `installed_func_0`
-- `Llzma_index_stream_size_1` -> `installed_func_1`
+- `Llzma_index_stream_size_1` -> `installed_func_1` -> `RSA_public_decrypt hook/detour` (thanks [q3k](https://gist.github.com/q3k))
 - `Lindex_decode_1` -> `installed_func_2`
 - `Lindex_encode_1` -> `installed_func_3`
 - `Llzma2_decoder_end_1` -> `apply_one_entry_ex`
