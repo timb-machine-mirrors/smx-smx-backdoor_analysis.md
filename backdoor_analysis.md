@@ -20,7 +20,8 @@
 - `Lx86_code_part_0` -> `code_dasm`
 -----
 
-- `Llzma_delta_decoder_init_part_0` -> `backdoor_ctx_init`
+- `Llzma_delta_decoder_init_part_0` -> `backdoor_vtbl_init`
+  - It sets up a vtable with core functions used by the backdoor
 
 - `Lstream_decoder_memconfig_part_1` -> `get_lzma_allocator`
 
@@ -84,6 +85,8 @@
   - Reads the list of loaded libraries through `_r_debug->r_map`, and calls `process_shared_libraries_map` to traverse it
 - `Llzma_index_encoder_init_1` -> `process_shared_libraries_map`
   - Traverses the list of loaded libraries, looking for specific libraries
+
+- func @0x7620 : It does indirect calls on the vtable configured by `backdoor_vtbl_init`, and is called by the `RSA_public_decrypt` upon certain conditions are met
 
 Software Breakpoint check, method 1
 -----
