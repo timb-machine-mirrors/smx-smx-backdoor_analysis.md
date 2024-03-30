@@ -81,8 +81,8 @@
 ##### core functionality
 - `Llzma_delta_props_encode_part_0` -> `resolve_imports` (including `system()`)
 - `Llzma_index_stream_flags_0` -> `process_shared_libraries`
-  - Reads the list of loaded libraries through `_r_debug->r_map`, and calls `process_shared_library_map` to traverse it
-- `Llzma_index_encoder_init_1` -> `process_shared_library_map`
+  - Reads the list of loaded libraries through `_r_debug->r_map`, and calls `process_shared_libraries_map` to traverse it
+- `Llzma_index_encoder_init_1` -> `process_shared_libraries_map`
   - Traverses the list of loaded libraries, looking for specific libraries
 
 Software Breakpoint check, method 1
