@@ -20,17 +20,6 @@
 
 - `Llzma12_coder_1` -> `global_ctx`
 
-- `Llzma_index_memusage_0` -> `apply_entries`
-- `Llzma_check_init_part_0` -> `apply_one_entry`
-- `Lrc_read_init_part_0` -> `apply_one_entry_internal`
-
-- `Llzip_decoder_memconfig_part_0` -> `installed_func_0`
-- `Llzma_index_stream_size_1` -> `installed_func_1`
-- `Lindex_decode_1` -> `installed_func_2`
-- `Lindex_encode_1` -> `installed_func_3`
-
-- `Llzma2_decoder_end_1` -> `apply_one_entry_ex`
-
 ----
 ##### ELF parsing
 - `Lget_literal_price_part_0` -> `parse_elf`
@@ -47,10 +36,24 @@
 
 - `Llzma_stream_flags_compare_1` -> `get_rodata_ptr`
 
+- `Lx86_code_part_0` -> `code_dasm`
+
+----
+##### Probable function hooking (to be verified)
+- `Llzma_index_memusage_0` -> `apply_entries`
+- `Llzma_check_init_part_0` -> `apply_one_entry`
+- `Lrc_read_init_part_0` -> `apply_one_entry_internal`
+
+- `Llzma_lzma_optimum_fast_0` -> `install_entries`
+- `Llzip_decoder_memconfig_part_0` -> `installed_func_0`
+- `Llzma_index_stream_size_1` -> `installed_func_1`
+- `Lindex_decode_1` -> `installed_func_2`
+- `Lindex_encode_1` -> `installed_func_3`
+- `Llzma2_decoder_end_1` -> `apply_one_entry_ex`
+
 - `Llzma2_encoder_init.1` -> `apply_method_1`
 - `Llzma_memlimit_get_1` -> `apply_method_2`
-
-- `Lx86_code_part_0` -> `code_dasm`
+----
 
 
 -----
