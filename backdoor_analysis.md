@@ -3,9 +3,6 @@
 - `Llzma_block_param_encoder_0` -> `backdoor_init`
 - `Llzma_delta_props_encoder` -> `backdoor_init_stage2`
 
-- `Llzma_simple_props_size_part_0` -> `is_gnu_relro`
-
-
 -----
 ##### Prefix Trie (https://social.hackerspace.pl/@q3k/112184695043115759)
 - `Llzip_decode_1` -> `table1`
@@ -45,6 +42,7 @@
 - `Lcrc_init_0` -> `table_lookup_multi`
 - `.Lcrc64_generic.0` -> `table_lookup_ex`
 - `Llz_stream_decode` -> `count_1_bits`
+- `Llzma_simple_props_size_part_0` -> `is_gnu_relro`
 ----
 
 - `Llzma_stream_flags_compare_1` -> `get_rodata_ptr`
