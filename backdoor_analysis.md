@@ -12,7 +12,7 @@
 - `Lsimple_coder_update_0` -> `table_get`
   - Retrieves the index of the encoded string given the plaintext string in memory
 - `Lcrc_init_0` -> `import_lookup`
-- `.Lcrc64_generic.0` -> `table_lookup_ex`
+- `.Lcrc64_generic.0` -> `import_lookup_ex`
 -----
 
 ##### Anti RE and x64 code Dasm
