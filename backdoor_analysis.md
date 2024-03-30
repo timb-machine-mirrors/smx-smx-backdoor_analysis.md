@@ -131,7 +131,7 @@ __int64 backdoor_init(rootkit_ctx *ctx, DWORD *prev_got_ptr)
 ```
 ----
 
-##### Name matching (function 0x28C0)
+##### Function Name matching (function 0x28C0)
 ```c
 str_id = table_get(a6, 0LL);
 ...
