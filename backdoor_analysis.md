@@ -10,6 +10,7 @@
 
 - `Llz_stream_decode` -> `count_1_bits`
 - `Lsimple_coder_update_0` -> `table_get`
+  - Retrieves the index of the encoded string given the plaintext string in memory
 - `Lcrc_init_0` -> `table_lookup_multi`
 - `.Lcrc64_generic.0` -> `table_lookup_ex`
 -----
