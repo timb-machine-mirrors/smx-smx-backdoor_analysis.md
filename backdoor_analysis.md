@@ -185,7 +185,7 @@ The third field, `opaque`, is used to pass additional data to the functions, e.g
   result = parse_elf(*a1, a2);
   if ( (_DWORD)result )
   {
-    lzma_allocator[2] = a2;
+    lzma_allocator[2] = a2; // <-- sets the `opaque` field to some data that will be used by the fake allocator function
     v6 = lzma_alloc(STR_read_, lzma_allocator);
     *(_QWORD *)(a3 + 72) = v6;
     if ( v6 )
