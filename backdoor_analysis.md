@@ -73,6 +73,10 @@
 - `Llzma_memlimit_get_1` -> `apply_method_2`
 ----
 
+##### lzma allocator / call hiding
+----
+- `Lstream_decoder_mt_end_0` -> `get_lzma_allocator_addr`
+
 Software Breakpoint check, method 1
 -----
 
@@ -141,5 +145,60 @@ else if ( v13 && str_id == STR_EVP_PKEY_set__RSA_ )
 ...
 else if (str_id != STR_RSA_get__key_ || !v17 )
 ```
+
+##### Hidden calls (via `lzma_alloc`)
+`lzma_alloc` has the following prototype:
+```c
+extern void * lzma_alloc (size_t size , const lzma_allocator * allocator )
+```
+
+The malware implements a custom allocator, which is obtained from `get_lzma_allocator` @ 0x4050
+
+```c
+void *get_lzma_allocator()
+{
+  return get_lzma_allocator_addr() + 8;
+}
+
+char *get_lzma_allocator_addr()
+{
+  unsigned int i;
+  char *mem;
+
+  // Llookup_filter_part_0 holds the relative offset of `_Ldecoder_1` - 180h (0xC930)
+  // by adding 0x160, it gets to 0xCA90 (Lx86_coder_destroy), which is subsequently used as scratch space for creating the `lzma_allocator` struct (data starts after 8 bytes, at 0xCA98, which is the beginning of a .data segment)
+  mem = (char *)Llookup_filter_part_0;
+  for ( i = 0; i <= 0xB; ++i )
+    mem += 32;
+  return mem;
+}
+```
+
+The interface for `lzma_allocator` can be viewed for example here: https://github.com/frida/xz/blob/e70f5800ab5001c9509d374dbf3e7e6b866c43fe/src/liblzma/api/lzma/base.h#L378-L440
+
+The malware initializes it in `parse_elf_init` (TODO: find which functions are used for `alloc` and `free`).
+The third field, `opaque`, is used to pass additional data to the functions, e.g. (in `Llzma_index_buffer_encode_0`):
+
+```c
+  lzma_allocator = get_lzma_allocator();
+  result = parse_elf(*a1, a2);
+  if ( (_DWORD)result )
+  {
+    lzma_allocator[2] = a2;
+    v6 = lzma_alloc(STR_read_, lzma_allocator);
+    *(_QWORD *)(a3 + 72) = v6;
+    if ( v6 )
+      ++*(_DWORD *)a3;
+    v7 = lzma_alloc(STR___errno_location_, lzma_allocator);
+    *(_QWORD *)(a3 + 80) = v7;
+    if ( v7 )
+      ++*(_DWORD *)a3;
+    return *(_DWORD *)a3 == 2;
+  }
+  return result;
+}
+```
+
+Note how, instead of `size`, the malware passes an EncodedStringID instead
 
 ##### 
