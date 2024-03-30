@@ -9,10 +9,13 @@
 - `Lcrc64_clmul_1` -> `table2`	
 -----
 
+##### Anti RE and x64 code Dasm
+- `Llzma_block_buffer_encode_0` -> `check_software_breakpoint`
+- `Lx86_code_part_0` -> `code_dasm`
+-----
+
 - `Llzma_delta_decoder_init_part_0` -> `backdoor_ctx_init`
 
-
-- `Llzma_block_buffer_encode_0` -> `check_software_breakpoint`
 - `Lstream_decoder_memconfig_part_1` -> `get_lzma_allocator`
 
 - `Llzma_simple_props_encode_1` -> `j_tls_get_addr`
@@ -36,8 +39,6 @@
 
 - `Llzma_stream_flags_compare_1` -> `get_rodata_ptr`
 
-- `Lx86_code_part_0` -> `code_dasm`
-
 ----
 ##### Probable function hooking (to be verified)
 - `Llzma_index_memusage_0` -> `apply_entries`
@@ -55,8 +56,6 @@
 - `Llzma_memlimit_get_1` -> `apply_method_2`
 ----
 
-
------
 Software Breakpoint check, method 1
 -----
 
