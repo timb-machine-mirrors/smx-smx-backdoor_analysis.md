@@ -50,3 +50,25 @@
 - `Llzma_memlimit_get_1` -> `apply_method_2`
 
 - `Lx86_code_part_0` -> `code_dasm`
+
+
+-----
+Software Breakpoint check, method 1
+-----
+
+This method checks if the opcode `endbr64`, which is always present at the beginning of every function in the malware, is overwritten.
+GDB would typically do this when inserting a software breakpoint
+
+```c
+/*** address: 0xAB0 ***/
+__int64 check_software_breakpoint(_DWORD *code_addr, __int64 a2, int a3)
+{
+  unsigned int v4;
+
+  v4 = 0;
+  // [for a3=0xe230], true when *v = 0xfa1e0ff3 (aka endbr64)
+  if ( a2 - code_addr > 3 )
+    return *code_addr + (a3 | 0x5E20000) == 0xF223;// 5E2E230
+  return v4;
+}
+```
