@@ -38,6 +38,20 @@
 - `Llzma_stream_header_encode_part_0` -> `get_ehdr_address`
 - `Lparse_bcj_0` -> `process_elf_seg`
 - `Llzma_simple_props_size_part_0` -> `is_gnu_relro`
+
+
+##### Stealthy ELF magic verification 
+```c
+  // locate elf header
+  while ( 1 )
+  {
+    if ( (unsigned int)table_get(ehdr, 0LL) == 0x300 )
+      break; // found
+    ehdr -= 64; // backtrack and try again
+    if ( ehdr == start_pointer )
+      goto not_found;
+  }
+```
 ----
 
 - `Llzma_stream_flags_compare_1` -> `get_rodata_ptr`
