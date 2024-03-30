@@ -4,8 +4,13 @@
 - `Llzma_delta_props_encoder` -> `backdoor_init_stage2`
 
 - `Llzma_simple_props_size_part_0` -> `is_gnu_relro`
+
+
+-----
+##### Prefix Trie (https://social.hackerspace.pl/@q3k/112184695043115759)
 - `Llzip_decode_1` -> `table1`
 - `Lcrc64_clmul_1` -> `table2`	
+-----
 
 - `Llzma_delta_decoder_init_part_0` -> `backdoor_ctx_init`
 - `Lsimple_coder_update_0` -> `table_get`
