@@ -195,23 +195,31 @@ The malware initializes it in `parse_elf_init` (TODO: find which functions are u
                 ++ctx->num_imports;
   ```
  
-The third `lzma_allocator` field, `opaque`, is abused to pass additional data to the "allocator" functions, e.g. (in `Llzma_index_buffer_encode_0`):
+The third `lzma_allocator` field, `opaque`, is abused to pass information about the loaded ELF file "fake allocator" functions.
+This is highlighted quite well by function `Llzma_index_buffer_encode_0`:
 
 ```c
+__int64 Llzma_index_buffer_encode_0(Elf64_Ehdr **p_elf, struct_segment *elf_info, struct_ctx *ctx)
+{
+  _QWORD *lzma_allocator;
+  __int64 result;
+  __int64 fn_read;
+  __int64 fn_errno_location;
+
   lzma_allocator = get_lzma_allocator();
-  result = parse_elf(*a1, a2);
+  result = parse_elf(*p_elf, elf_info);         // reads elf into elf_info
   if ( (_DWORD)result )
   {
-    lzma_allocator[2] = a2; // <-- sets the `opaque` field to some data that will be used by the fake allocator function
-    v6 = lzma_alloc(STR_read_, lzma_allocator);
-    *(_QWORD *)(a3 + 72) = v6;
-    if ( v6 )
-      ++*(_DWORD *)a3;
-    v7 = lzma_alloc(STR___errno_location_, lzma_allocator);
-    *(_QWORD *)(a3 + 80) = v7;
-    if ( v7 )
-      ++*(_DWORD *)a3;
-    return *(_DWORD *)a3 == 2;
+    lzma_allocator[2] = elf_info;               // set opaque field to the parsed elf info
+    fn_read = lzma_alloc(STR_read_, lzma_allocator);
+    ctx->fn_read = fn_read;
+    if ( fn_read )
+      ++ctx->num_imports;
+    fn_errno_location = lzma_alloc(STR___errno_location_, lzma_allocator);
+    ctx->fn_errno_location = fn_errno_location;
+    if ( fn_errno_location )
+      ++ctx->num_imports;
+    return ctx->num_imports == 2; // true if we found both imports
   }
   return result;
 }
