@@ -199,7 +199,7 @@ The third `lzma_allocator` field, `opaque`, is abused to pass information about 
 This is highlighted quite well by function `Llzma_index_buffer_encode_0`:
 
 ```c
-__int64 Llzma_index_buffer_encode_0(Elf64_Ehdr **p_elf, struct_segment *elf_info, struct_ctx *ctx)
+__int64 Llzma_index_buffer_encode_0(Elf64_Ehdr **p_elf, struct_elf_info *elf_info, struct_ctx *ctx)
 {
   _QWORD *lzma_allocator;
   __int64 result;
