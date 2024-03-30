@@ -13,12 +13,9 @@
 -----
 
 - `Llzma_delta_decoder_init_part_0` -> `backdoor_ctx_init`
-- `Lsimple_coder_update_0` -> `table_get`
-- `Lcrc_init_0` -> `table_lookup_multi`
-- `Llz_stream_decode` -> `count_1_bits`
-- `.Lcrc64_generic.0` -> `table_lookup_ex`
 
-- `Llzma_block_buffer_encode_0` -> `check_F223`
+
+- `Llzma_block_buffer_encode_0` -> `check_software_breakpoint`
 - `Lstream_decoder_memconfig_part_1` -> `get_lzma_allocator`
 
 - `Llzma_simple_props_encode_1` -> `j_tls_get_addr`
@@ -37,13 +34,19 @@
 
 - `Llzma2_decoder_end_1` -> `apply_one_entry_ex`
 
+----
+##### ELF parsing
 - `Lget_literal_price_part_0` -> `parse_elf`
 - `Lparse_bcj_0` -> `process_elf_seg`
-
 - `Lmicrolzma_encoder_init_1` -> `parse_elf_init`
 - `Llzma_filter_decoder_is_supported.part.0` -> `parse_elf_invoke`
-
 - `Llzma_stream_header_encode_part_0` -> `get_ehdr_address`
+- `Lsimple_coder_update_0` -> `table_get`
+- `Lcrc_init_0` -> `table_lookup_multi`
+- `.Lcrc64_generic.0` -> `table_lookup_ex`
+- `Llz_stream_decode` -> `count_1_bits`
+----
+
 - `Llzma_stream_flags_compare_1` -> `get_rodata_ptr`
 
 - `Llzma2_encoder_init.1` -> `apply_method_1`
