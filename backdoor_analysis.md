@@ -45,7 +45,7 @@
   // locate elf header
   while ( 1 )
   {
-    if ( (unsigned int)table_get(ehdr, 0LL) == 0x300 )
+    if ( (unsigned int)table_get(ehdr, 0LL) == STR__ELF ) // 0x300
       break; // found
     ehdr -= 64; // backtrack and try again
     if ( ehdr == start_pointer )
