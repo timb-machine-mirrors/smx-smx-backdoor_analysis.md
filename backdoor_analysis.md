@@ -86,7 +86,7 @@
 - `Llzma_index_encoder_init_1` -> `process_shared_libraries_map`
   - Traverses the list of loaded libraries, looking for specific libraries
 
-- func @0x7620 : It does indirect calls on the vtable configured by `backdoor_vtbl_init`, and is called by the `RSA_public_decrypt` upon certain conditions are met
+- func @0x7620 : It does indirect calls on the vtable configured by `backdoor_vtbl_init`, and is called by the `RSA_public_decrypt` hook (func#1) upon certain conditions are met
 
 Software Breakpoint check, method 1
 -----
