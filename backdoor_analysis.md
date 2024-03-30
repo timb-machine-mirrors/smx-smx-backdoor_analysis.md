@@ -195,7 +195,7 @@ The malware initializes it in `parse_elf_init` (TODO: find which functions are u
                 ++ctx->num_imports;
   ```
  
-The third `lzma_allocator` field, `opaque`, is abused to pass information about the loaded ELF file "fake allocator" functions.
+The third `lzma_allocator` field, `opaque`, is abused to pass information about the loaded ELF file to the "fake allocator" function.
 This is highlighted quite well by function `Llzma_index_buffer_encode_0`:
 
 ```c
