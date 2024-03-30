@@ -11,7 +11,7 @@
 - `Llz_stream_decode` -> `count_1_bits`
 - `Lsimple_coder_update_0` -> `table_get`
   - Retrieves the index of the encoded string given the plaintext string in memory
-- `Lcrc_init_0` -> `table_lookup_multi`
+- `Lcrc_init_0` -> `import_lookup`
 - `.Lcrc64_generic.0` -> `table_lookup_ex`
 -----
 
@@ -141,3 +141,5 @@ else if ( v13 && str_id == STR_EVP_PKEY_set__RSA_ )
 ...
 else if (str_id != STR_RSA_get__key_ || !v17 )
 ```
+
+##### 
