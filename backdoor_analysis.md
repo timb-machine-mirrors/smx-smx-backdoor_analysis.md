@@ -297,11 +297,34 @@ Program received signal SIGINT, Interrupt.
 #7  0x00007f8cb3b5c60c in _dl_start_final (arg=0x7ffe17e402e0)
     at ./elf/rtld.c:498
 #8  _dl_start (arg=0x7ffe17e402e0) at ./elf/rtld.c:585
-#9  0x00007f8cb3b5b4d8 in _start () from /lib64/ld-linux-x86-64.so.2
+#9  0x00007f8cb3b5b4d8 in _start () from /lib64/ld-li
+nux-x86-64.so.2
 #10 0x0000000000000002 in ?? ()
 #11 0x00007ffe17e40fa1 in ?? ()
 #12 0x00007ffe17e40fb0 in ?? ()
 #13 0x0000000000000000 in ?? ()
+```
+
+NOTE: `_get_cpuid` will call function 0xA710, whose purpose is to detect if we're at the right point to initialize the backdoor
+Why?
+Because `elf_machine_rela` will call `_get_cpuid` for both `lzma_crc32` and `lzma_crc64`.
+Since the modified code is part of `lzma_crc64`, 0xA710 has a simple call counter in it to trace how many times it has been called, and  make sure the modification doesn't trigger for `lzma_crc32`.
+
+- first call (0): -> `lzma_crc32`
+- second call (1): -> `lzma_crc64`
+
+```c
+  if ( call_counter == 1 )
+  {
+    rootkit_ctx.head = 1LL;
+    memset(&rootkit_ctx.runtime_offset, 0, 32);
+    rootkit_ctx.prev_got_ptr = prev_got_ptr;
+    backdoor_init(&rootkit_ctx, prev_got_ptr);  // replace cpuid got entry
+  }
+  ++call_counter;
+  cpuid(a1, &v5, &v6, &v7, &rootkit_ctx);
+  return v5;
+}
 ```
 
 At this point, you can issue `detach` and attach with other debuggers if needed.
