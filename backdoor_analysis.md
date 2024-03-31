@@ -246,6 +246,7 @@ Note how, instead of `size`, the malware passes an EncodedStringID instead
 
 ## Dynamic analysis
 
+### Analyzing the initialization routine
 1. Replace the `endbr64` in `get_cpuid` with a `jmp .` ("\xeb\xfe")
 ```shell
 root@debian:~# cat /usr/lib/x86_64-linux-gnu/liblzma.so.5.6.1 > liblzma.so.5.6.1
@@ -255,16 +256,23 @@ root@debian:~# perl -pe 's/\xF3\x0F\x1E\xFA\x55\x48\x89\xF5\x4C\x89\xCE/\xEB\xFE
 ```
 # env -i LC_LANG=C LD_PRELOAD=$PWD/liblzma.so.5.6.1 /usr/sbin/sshd -h
 ```
+NOTE: [anarazel](https://github.com/anarazel) recommends using `LD_LIBRARY_PATH` with a symlink instead, since `LD_PRELOAD` changes the initialization order and could
+
+###
 
 2b. or use this gdbinit file to do it all at once
 ```shell
 # cat gdbinit
 set confirm off
 unset env
+
+## comment this out if you don't want to debug the initialization code
+## (or use LD_LIBRARY_PATH instead)
 set env LD_PRELOAD=/root/sshd/liblzma.so.5.6.1
 set env LANG=C
 file /usr/sbin/sshd
-set args -h
+## start sshd on port 2022
+set args -p 2022
 set disassembly-flavor intel
 set confirm on
 set startup-with-shell off
@@ -274,7 +282,7 @@ show args
 
 # gdb -x gdbinit
 (gdb) r
-Starting program: /usr/sbin/sshd -h
+Starting program: /usr/sbin/sshd -p 222
 ^C <-- send CTRL-C
 Program received signal SIGINT, Interrupt.
 0x00007ffff7f8a7f0 in ?? ()
