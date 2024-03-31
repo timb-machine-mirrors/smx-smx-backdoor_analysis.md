@@ -353,7 +353,7 @@ Now connect via https://gist.github.com/keeganryan/a6c22e1045e67c17e88a606dfdf95
 Thread 3.1 "sshd" hit Breakpoint 1, 0x00007ffff73d1d00 in ?? () from /lib/x86_64-linux-gnu/liblzma.so.5
 (gdb) bt
 #0  0x00007ffff73d1d00 in ?? () from /lib/x86_64-linux-gnu/liblzma.so.5
-#1  0x00007ffff73d1ae7 in ?? () from /lib/x86_64-linux-gnu/liblzma.so.5
+#1  0x00007ffff73d1ae7 in ?? () from /lib/x86_64-linux-gnu/liblzma.so.5 <-- Llzma_index_prealloc_0 (offset 0x48 in vtable)
 #2  0x00005555556bdd00 in ?? ()
 #3  0x0000000100000004 in ?? ()
 #4  0x00007fffffffdeb0 in ?? ()
