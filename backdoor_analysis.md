@@ -316,6 +316,7 @@ Since the modified code is part of `lzma_crc64`, 0xA710 has a simple call counte
 ```c
   if ( call_counter == 1 )
   {
+    /** NOTE: some of these fields are unverified and guessed **/
     rootkit_ctx.head = 1LL;
     memset(&rootkit_ctx.runtime_offset, 0, 32);
     rootkit_ctx.prev_got_ptr = prev_got_ptr;
