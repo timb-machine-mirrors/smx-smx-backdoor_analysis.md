@@ -303,3 +303,6 @@ Program received signal SIGINT, Interrupt.
 #12 0x00007ffe17e40fb0 in ?? ()
 #13 0x0000000000000000 in ?? ()
 ```
+
+At this point, you can issue `detach` and attach with other debuggers if needed.
+Once attached, set relevant breakpoints and replace the original bytes ("\xF3\x0F\x1E\xFA")
