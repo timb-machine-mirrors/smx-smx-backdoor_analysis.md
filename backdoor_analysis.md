@@ -305,4 +305,4 @@ Program received signal SIGINT, Interrupt.
 ```
 
 At this point, you can issue `detach` and attach with other debuggers if needed.
-Once attached, set relevant breakpoints and replace the original bytes ("\xF3\x0F\x1E\xFA")
+Once attached, set relevant breakpoints and restore the original bytes ("\xF3\x0F\x1E\xFA")
