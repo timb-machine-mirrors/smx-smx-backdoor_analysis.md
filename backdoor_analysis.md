@@ -353,15 +353,21 @@ Once attached, set relevant breakpoints and restore the original bytes ("\xF3\x0
 
 
 ##### breakpoint on RSA_public_decrypt hook
+Run this gdb script on the sshd listener process
+(this new gdbinit script should account for eventual differences in library load address - it didn't happen for me in the first tests but it did later on)
 ```
-(gdb) find /b 0x7ffff73bf000, 0x7ffff73e8000, 0xF3, 0x0F, 0x1E, 0xFA, 0x41, 0x57, 0xB9, 0xAE, 0x00, 0x00, 0x00, 0x31
-0x7ffff73d1d00
-1 pattern found.
-(gdb) hbreak *0x7ffff73d1d00
-Hardware assisted breakpoint 1 at 0x7ffff73d1d00
-(gdb) set follow-fork-mode child
-(gdb) c
-...
+set pagination off
+set follow-fork-mode child
+catch load
+# now we forked, wait for lzma
+catch load liblzma
+c
+# now we have lzma
+# 0x12750: offset from base
+hbreak *(lzma_crc32 - 0x2640 + 0x12750)
+set disassembly-flavor intel
+set pagination on
+c
 ```
 
 Now connect via https://gist.github.com/keeganryan/a6c22e1045e67c17e88a606dfdf95ae4
