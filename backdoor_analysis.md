@@ -329,4 +329,34 @@ Since the modified code is part of `lzma_crc64`, 0xA710 has a simple call counte
 ```
 
 At this point, you can issue `detach` and attach with other debuggers if needed.
+
+
 Once attached, set relevant breakpoints and restore the original bytes ("\xF3\x0F\x1E\xFA")
+
+
+##### breakpoint on RSA_public_decrypt hook
+```
+(gdb) find /b 0x7ffff73bf000, 0x7ffff73e8000, 0xF3, 0x0F, 0x1E, 0xFA, 0x41, 0x57, 0xB9, 0xAE, 0x00, 0x00, 0x00, 0x31
+0x7ffff73d1d00
+1 pattern found.
+(gdb) hbreak *0x7ffff73d1d00
+Hardware assisted breakpoint 1 at 0x7ffff73d1d00
+(gdb) set follow-fork-mode child
+(gdb) c
+...
+```
+
+Now connect via https://gist.github.com/keeganryan/a6c22e1045e67c17e88a606dfdf95ae4
+
+```
+...
+Thread 3.1 "sshd" hit Breakpoint 1, 0x00007ffff73d1d00 in ?? () from /lib/x86_64-linux-gnu/liblzma.so.5
+(gdb) bt
+#0  0x00007ffff73d1d00 in ?? () from /lib/x86_64-linux-gnu/liblzma.so.5
+#1  0x00007ffff73d1ae7 in ?? () from /lib/x86_64-linux-gnu/liblzma.so.5
+#2  0x00005555556bdd00 in ?? ()
+#3  0x0000000100000004 in ?? ()
+#4  0x00007fffffffdeb0 in ?? ()
+#5  0x00000001f74b5d7a in ?? ()
+#6  0x0000000000000000 in ?? ()
+```
