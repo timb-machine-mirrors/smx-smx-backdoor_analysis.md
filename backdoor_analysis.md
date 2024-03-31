@@ -302,26 +302,4 @@ Program received signal SIGINT, Interrupt.
 #11 0x00007ffe17e40fa1 in ?? ()
 #12 0x00007ffe17e40fb0 in ?? ()
 #13 0x0000000000000000 in ?? ()
-(gdb) bt
-#0  0x00007f8cb3b067f0 in ?? () from /root/sshd/liblzma.so.5.6.1
-#1  0x00007f8cb3b08c29 in lzma_crc32 () from /root/sshd/liblzma.so.5.6.1
-#2  0x00007f8cb3b4ffab in elf_machine_rela (skip_ifunc=<optimized out>,
-    reloc_addr_arg=0x7f8cb3b3dda0 <lzma_crc32@got[plt]>, version=<optimized out>, sym=0x7f8cb3b03018,
-    reloc=0x7f8cb3b04fc8, scope=0x7f8cb3b3f4f8, map=0x7f8cb3b3f170) at ../sysdeps/x86_64/dl-machine.h:300
-#3  elf_dynamic_do_Rela (skip_ifunc=<optimized out>, lazy=<optimized out>, nrelative=<optimized out>,
-    relsize=<optimized out>, reladdr=<optimized out>, scope=<optimized out>, map=0x7f8cb3b3f170)
-    at ./elf/do-rel.h:147
-#4  _dl_relocate_object (l=l@entry=0x7f8cb3b3f170, scope=<optimized out>, reloc_mode=<optimized out>,
-    consider_profiling=<optimized out>, consider_profiling@entry=0) at ./elf/dl-reloc.c:301
-#5  0x00007f8cb3b5e6e9 in dl_main (phdr=<optimized out>, phnum=<optimized out>, user_entry=<optimized out>,
-    auxv=<optimized out>) at ./elf/rtld.c:2318
-#6  0x00007f8cb3b5af0f in _dl_sysdep_start (start_argptr=start_argptr@entry=0x7ffe17e402e0,
-    dl_main=dl_main@entry=0x7f8cb3b5c900 <dl_main>) at ../sysdeps/unix/sysv/linux/dl-sysdep.c:140
-#7  0x00007f8cb3b5c60c in _dl_start_final (arg=0x7ffe17e402e0) at ./elf/rtld.c:498
-#8  _dl_start (arg=0x7ffe17e402e0) at ./elf/rtld.c:585
-#9  0x00007f8cb3b5b4d8 in _start () from /lib64/ld-linux-x86-64.so.2
-#10 0x0000000000000002 in ?? ()
-#11 0x00007ffe17e40fa1 in ?? ()
-#12 0x00007ffe17e40fb0 in ?? ()
-#13 0x0000000000000000 in ?? ()
 ```
