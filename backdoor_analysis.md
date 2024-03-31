@@ -246,6 +246,31 @@ root@debian:~# perl -pe 's/\xF3\x0F\x1E\xFA\x55\x48\x89\xF5\x4C\x89\xCE/\xEB\xFE
 # env -i LC_LANG=C LD_PRELOAD=$PWD/liblzma.so.5.6.1 /usr/sbin/sshd -h
 ```
 
+2b. or use this gdbinit file to do it all at once
+```shell
+# cat gdbinit
+set confirm off
+unset env
+set env LD_PRELOAD=/root/sshd/liblzma.so.5.6.1
+set env LANG=C
+file /usr/sbin/sshd
+set args -h
+set disassembly-flavor intel
+set confirm on
+set startup-with-shell off
+
+show env
+show args
+
+# gdb -x gdbinit
+(gdb) r
+Starting program: /usr/sbin/sshd -h
+^C <-- send CTRL-C
+Program received signal SIGINT, Interrupt.
+0x00007ffff7f8a7f0 in ?? ()
+```
+
+
 3. Attach to the frozen process with your favourite debugger (`gdb attach pid`)
 ```
 (gdb) bt
