@@ -111,7 +111,7 @@ __int64 check_software_breakpoint(_DWORD *code_addr, __int64 a2, int a3)
 ```
 
 ----
-Function backdoor_init (0xA7849)
+Function backdoor_init (0xA784)
 
 ```c
 __int64 backdoor_init(rootkit_ctx *ctx, DWORD *prev_got_ptr)
