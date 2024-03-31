@@ -360,3 +360,17 @@ Thread 3.1 "sshd" hit Breakpoint 1, 0x00007ffff73d1d00 in ?? () from /lib/x86_64
 #5  0x00000001f74b5d7a in ?? ()
 #6  0x0000000000000000 in ?? ()
 ```
+
+##### RSA_public_decrypt GOT hook (Llzma_index_prealloc_0)
+```c
+  /** the following happens during pubkey login **/
+  
+  params[0] = 1;                                // should we call original?
+  // this call checks if the supplied RSA key is special
+  result = installed_func_1(rsa_key, global_ctx, params); 
+  // if still 1, the payload didn't trigger, call the original function
+  // if 0, bypass validation
+  if ( params[0] ) 
+    return real_RSA_public_decrypt(flen, from, to, rsa_key);
+  return result;
+```
