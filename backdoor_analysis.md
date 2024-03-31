@@ -234,7 +234,7 @@ __int64 Llzma_index_buffer_encode_0(Elf64_Ehdr **p_elf, struct_elf_info *elf_inf
 
 Note how, instead of `size`, the malware passes an EncodedStringID instead
 
-##### Dynamic analysis
+## Dynamic analysis
 
 1. Replace the `endbr64` in `get_cpuid` with a `jmp .` ("\xeb\xfe")
 ```shell
