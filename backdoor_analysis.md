@@ -77,6 +77,8 @@
 ##### lzma allocator / call hiding
 ----
 - `Lstream_decoder_mt_end_0` -> `get_lzma_allocator_addr`
+- `Linit_pric_table_part_1` -> `fake_lzma_allocator`
+- `Lstream_decode_1` -> `fake_lzma_free`
 
 ----
 ##### core functionality
@@ -177,8 +179,7 @@ char *get_lzma_allocator_addr()
   char *mem;
 
   // Llookup_filter_part_0 holds the relative offset of `_Ldecoder_1` - 180h (0xC930)
-  // by adding 0x160, it gets to 0xCA90 (Lx86_coder_destroy), which is subsequently used as scratch space
-  // for creating the `lzma_allocator` struct (data starts after 8 bytes, at 0xCA98, which is the beginning of a .data segment)
+  // by adding 0x180, it gets to 0xCAB0 (Lx86_coder_destroy), Since the caller adds +8, we get to 0xCAB8, which is the lzma_allocator itself
   mem = (char *)Llookup_filter_part_0;
   for ( i = 0; i <= 0xB; ++i )
     mem += 32;
@@ -188,8 +189,9 @@ char *get_lzma_allocator_addr()
 
 The interface for `lzma_allocator` can be viewed for example here: https://github.com/frida/xz/blob/e70f5800ab5001c9509d374dbf3e7e6b866c43fe/src/liblzma/api/lzma/base.h#L378-L440
 
-The malware initializes it in `parse_elf_init` (TODO: find which functions are used for `alloc` and `free`).
-  - NOTE: the function used for alloc is very likely `import_lookup_ex`, which turns `lzma_alloc` into an import resolution function.
+Therefore, the allocator is `Linit_pric_table_part_1` and free is `Lstream_decode_1`
+
+- NOTE: the function used for alloc is very likely `import_lookup_ex`, which turns `lzma_alloc` into an import resolution function.
   this is used a lot in `resolve_imports`, e.g.:
   ```c
                 system_func = lzma_alloc(STR_system_, lzma_allocator);
