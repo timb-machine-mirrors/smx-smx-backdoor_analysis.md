@@ -58,14 +58,18 @@
 - `Llzma_stream_flags_compare_1` -> `get_rodata_ptr`
 
 ----
-##### Probable function hooking (to be verified)
+##### Verified or Suspected function hooking
 - `Llzma_index_memusage_0` -> `apply_entries`
 - `Llzma_check_init_part_0` -> `apply_one_entry`
 - `Lrc_read_init_part_0` -> `apply_one_entry_internal`
 
 - `Llzma_lzma_optimum_fast_0` -> `install_entries`
 - `Llzip_decoder_memconfig_part_0` -> `installed_func_0`
-- `Llzma_index_stream_size_1` -> `installed_func_1` -> `RSA_public_decrypt hook/detour` (thanks  [q3k](https://github.com/q3k))
+
+- `Llzma_index_prealloc_0` -> `RSA_public_decrypt GOT hook/detour`
+- `Llzma_index_stream_size_1` -> `check_special_rsa_key` ->  (thanks  [q3k](https://github.com/q3k))
+  - Called from `Llzma_index_prealloc_0`, it checks if the supplied RSA key is the special key to bypass the normal authentication flow
+
 - `Lindex_decode_1` -> `installed_func_2`
 - `Lindex_encode_1` -> `installed_func_3`
 - `Llzma2_decoder_end_1` -> `apply_one_entry_ex`
@@ -82,6 +86,7 @@
 
 ----
 ##### core functionality
+
 - `Llzma_delta_props_encode_part_0` -> `resolve_imports` (including `system()`)
 - `Llzma_index_stream_flags_0` -> `process_shared_libraries`
   - Reads the list of loaded libraries through `_r_debug->r_map`, and calls `process_shared_libraries_map` to traverse it
