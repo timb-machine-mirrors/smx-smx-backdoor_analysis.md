@@ -23,7 +23,7 @@ https://discord.gg/TSD7H8Ww
 - `Lx86_code_part_0` -> `code_dasm`
 
 - `Llzma_index_iter_rewind_cold` -> `check_return_address`
-  -  Checks if the return address has been tampered with. Most of the times, this is at the prologue of the function. If the check fails, the function returns early without doing anything
+  -  Checks if the return address has been tampered with. This function is called at the beginning of a "protected" function. If the check fails, the function returns early without doing anything
 -----
 
 - `Llzma_delta_decoder_init_part_0` -> `backdoor_vtbl_init`
