@@ -256,7 +256,7 @@ root@debian:~# perl -pe 's/\xF3\x0F\x1E\xFA\x55\x48\x89\xF5\x4C\x89\xCE/\xEB\xFE
 ```
 # env -i LC_LANG=C LD_PRELOAD=$PWD/liblzma.so.5.6.1 /usr/sbin/sshd -h
 ```
-NOTE: [anarazel](https://github.com/anarazel) recommends using `LD_LIBRARY_PATH` with a symlink instead, since `LD_PRELOAD` changes the initialization order and could
+NOTE: [anarazel](https://github.com/anarazel) recommends using `LD_LIBRARY_PATH` with a symlink instead, since `LD_PRELOAD` changes the initialization order and could interfere with the normal flow of the malware
 
 ###
 
