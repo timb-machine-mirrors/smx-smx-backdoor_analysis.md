@@ -21,6 +21,9 @@ https://discord.gg/TSD7H8Ww
 ##### Anti RE and x64 code Dasm
 - `Llzma_block_buffer_encode_0` -> `check_software_breakpoint`
 - `Lx86_code_part_0` -> `code_dasm`
+
+- `Llzma_index_iter_rewind_cold` -> `check_return_address`
+  -  Checks if the return address has been tampered with. Most of the times, this is at the prologue of the function. If the check fails, the function returns early without doing anything
 -----
 
 - `Llzma_delta_decoder_init_part_0` -> `backdoor_vtbl_init`
@@ -32,6 +35,9 @@ https://discord.gg/TSD7H8Ww
 - `Llzma_block_uncomp_encode_0` -> `rodata_ptr_offset`
 
 - `Llzma12_coder_1` -> `global_ctx`
+
+
+
 
 ----
 ##### ELF parsing
