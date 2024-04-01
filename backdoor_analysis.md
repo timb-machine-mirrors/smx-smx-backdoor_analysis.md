@@ -398,3 +398,20 @@ Thread 3.1 "sshd" hit Breakpoint 1, 0x00007ffff73d1d00 in ?? () from /lib/x86_64
     return real_RSA_public_decrypt(flen, from, to, rsa_key);
   return result;
 ```
+
+### Binary patch for `sshd` to disable seccomp and chroot (allows Frida tracing of `[net]` processes)
+```shell
+> fc /b sshd sshd_patched
+Comparing files sshd sshd_patched
+0001332A: 75 90 
+0001332B: 6D 90
+----
+0004FC24: 41 C3
+0004FC25: 54 90
+----
+00109010: 01 00
+```
+
+- 0001332A: changes the following JMP to not be taken: https://github.com/openssh/openssh-portable/blob/43e7c1c07cf6aae7f4394ca8ae91a3efc46514e2/sshd.c#L448-L449
+- 0004FC24: changes the `ssh_sandbox_child` function to be a no-op: https://github.com/openssh/openssh-portable/blob/43e7c1c07cf6aae7f4394ca8ae91a3efc46514e2/sandbox-seccomp-filter.c#L490
+- 00109010: changes the default value of `privsep_chroot` from 1 to 0 (probably redundant, since it gets overwritten)
