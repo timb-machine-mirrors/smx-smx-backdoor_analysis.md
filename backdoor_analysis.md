@@ -1,6 +1,9 @@
 ### Discord Room for discussion
 https://discord.gg/TSD7H8Ww
 
+### Github repository:
+https://github.com/smx-smx/xzre
+
 ##### Init routines
 - `Llzma_delta_props_decoder` -> `backdoor_ctx_save`
 - `Llzma_block_param_encoder_0` -> `backdoor_init`
