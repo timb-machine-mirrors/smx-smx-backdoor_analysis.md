@@ -1,5 +1,5 @@
 ### Discord Room for discussion
-https://discord.gg/TSD7H8Ww
+https://discord.com/invite/maFYmgQkYH
 
 ### Github repository:
 https://github.com/smx-smx/xzre
